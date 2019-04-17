@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Admin for Add To Cart Fine Control.
+ *
+ * @package woocommerce-add-to-cart-fine-control
+ * @author Kevin Ruscoe
+ */
 
 /**
  * Update '_redirect_to_cart_action' meta key.
@@ -37,7 +42,6 @@ add_filter(
 	}
 );
 
-
 /**
  * Displays content in the 'Sample Product' new tab.
  */
@@ -46,10 +50,62 @@ add_action(
 	function () {
 		?>
 		<div id="redirect_to_cart_action_tab_data" class="panel woocommerce_options_panel">
-            
-            
-            
+			<?php
+			woocommerce_wp_select(
+				[
+					'id'                => '_add_to_cart_action',
+					'class'             => 'wc-product-search',
+					'label'             => 'Add To Cart Action',
+					'name'              => '_add_to_cart_action',
+					'style'             => 'width: 50%;',
+					'custom_attributes' => [
+						'data-placeholder' => 'Select action',
+						'data-action'      => 'add_to_cart_search_products_pages',
+					],
+				]
+			)
+			?>
 		</div>
 		<?php
+	}
+);
+
+/**
+ * Performs an AJAX admin call to find pages/products/posts.
+ */
+add_action(
+	'wp_ajax_add_to_cart_search_products_pages',
+	function() {
+		global $wpdb;
+
+		// @codingStandardsIgnoreLine
+		if ( ! isset( $_GET['term'] ) ) {
+			wp_die();
+		}
+
+		// @codingStandardsIgnoreLine
+		$term = sanitize_text_field( wp_unslash( $_GET['term'] ) );
+
+		// @codingStandardsIgnoreLine
+		$results = $wpdb->get_results(
+			$wpdb->prepare(
+				"select id, post_title, post_type from wp_posts where post_title like %s and post_status='publish' and post_type in ('post', 'page', 'product')",
+				'%' . $wpdb->esc_like( $term ) . '%'
+			)
+		);
+
+		$return = [];
+
+		foreach ( $results as $result ) {
+			$return[ $result->id ] = sprintf(
+				"%s <span style='float: right; color: #000'>%s</span>",
+				$result->post_title,
+				strtoupper( $result->post_type )
+			);
+		}
+
+		wp_die(
+			wp_json_encode( $return )
+		);
 	}
 );
