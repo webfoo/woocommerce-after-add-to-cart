@@ -33,6 +33,29 @@ add_action(
 add_action(
 	'woocommerce_product_options_advanced',
 	function () {
+		$options = [];
+
+		$current_value = get_post_meta( get_the_ID(), '_after_add_to_cart_redirection_id' )[0];
+
+		if ( $current_value ) {
+			if ( 'NULL' === $current_value ) {
+				$default = get_option( 'woocommerce_cart_redirect_after_add' );
+
+				$default_label = "Default Action (don't redirect to cart)";
+				if ( 'yes' === $default ) {
+					$default_label = 'Default Action (redirect to cart)';
+				}
+
+				$options['NULL'] = $default_label;
+			} else {
+				$options[ $current_value ] = sprintf(
+					"%s <span style='float: right; color: #000'>%s</span>",
+					get_the_title( $current_value ),
+					strtoupper( get_post_type( $current_value ) )
+				);
+			}
+		}
+
 		woocommerce_wp_select(
 			[
 				'id'                => '_after_add_to_cart_redirection_id',
@@ -47,6 +70,7 @@ add_action(
 					'data-action'      => 'add_to_cart_fine_control_search_things',
 					'data-exclude'     => get_the_ID(),
 				],
+				'options'           => $options,
 			]
 		);
 	}
