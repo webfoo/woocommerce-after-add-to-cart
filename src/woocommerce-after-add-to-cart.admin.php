@@ -35,7 +35,7 @@ add_action(
 	function () {
 		$options = [];
 
-		$current_value = get_post_meta( get_the_ID(), '_after_add_to_cart_redirection_id' )[0];
+		$current_value = get_post_meta( get_the_ID(), '_after_add_to_cart_redirection_id', true );
 
 		if ( $current_value ) {
 			if ( 'default_action' === $current_value ) {
@@ -113,7 +113,7 @@ add_action(
 		}
 
 		$return = [
-			'NULL' => $default_label,
+			'default_action' => $default_label,
 		];
 
 		foreach ( $results as $result ) {
