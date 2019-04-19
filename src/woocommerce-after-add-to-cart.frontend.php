@@ -12,13 +12,26 @@
 add_action(
 	'woocommerce_add_to_cart_redirect',
 	function() {
-		$product_id    = end( WC()->cart->cart_contents )['product_id'];
-		$current_value = get_post_meta( $product_id, '_after_add_to_cart_redirection_id', true );
+		// phpcs:disable WordPress.Security.NonceVerification
+		if ( ! isset( $_POST['add-to-cart'] ) ) {
+			return;
+		}
+
+		$is_variation = isset( $_POST['variation_id'], $_POST['product_id'] );
+
+		$post_id = $is_variation ? absint( $_POST['variation_id'] ) : absint( $_POST['product_id'] );
+
+		$current_value = get_post_meta( $post_id, '_after_add_to_cart_redirection_id', true );
 
 		if ( $current_value ) {
+			if ( 'as_parent' === $current_value ) {
+				$current_value = get_post_meta( absint( $_POST['product_id'] ), '_after_add_to_cart_redirection_id', true );
+			}
+
 			if ( 'default_action' !== $current_value ) {
 				return get_permalink( intval( $current_value ) );
 			}
 		}
+		// phpcs:enable WordPress.Security.NonceVerification
 	}
 );
