@@ -1,8 +1,8 @@
 {
-    "name": "kevinruscoe/woocommerce-add-to-cart-redirect-fine-control",
+    "name": "kevinruscoe/woocommerce-after-add-to-cart",
     "autoload": {
         "files": [
-            "src/woocommerce-add-to-cart-redirect-fine-control.php"
+            "src/woocommerce-after-add-to-cart.php"
         ]
     }
 }

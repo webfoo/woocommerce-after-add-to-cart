@@ -1,8 +1,8 @@
 <?php
 /**
- * Admin for Add To Cart Fine Control.
+ * Admin for woocommerce-after-add-to-cart
  *
- * @package woocommerce-add-to-cart-fine-control
+ * @package woocommerce-after-add-to-cart
  * @author Kevin Ruscoe
  */
 
@@ -38,7 +38,7 @@ add_action(
 		$current_value = get_post_meta( get_the_ID(), '_after_add_to_cart_redirection_id' )[0];
 
 		if ( $current_value ) {
-			if ( 'NULL' === $current_value ) {
+			if ( 'default_action' === $current_value ) {
 				$default = get_option( 'woocommerce_cart_redirect_after_add' );
 
 				$default_label = "Default Action (don't redirect to cart)";
@@ -46,7 +46,7 @@ add_action(
 					$default_label = 'Default Action (redirect to cart)';
 				}
 
-				$options['NULL'] = $default_label;
+				$options['default_action'] = $default_label;
 			} else {
 				$options[ $current_value ] = sprintf(
 					"%s <span style='float: right; color: #000'>%s</span>",
@@ -58,16 +58,16 @@ add_action(
 
 		woocommerce_wp_select(
 			[
+				'name'              => '_after_add_to_cart_redirection_id',
 				'id'                => '_after_add_to_cart_redirection_id',
 				'class'             => 'wc-product-search',
-				'label'             => 'Redirect To',
-				'name'              => '_after_add_to_cart_redirection_id',
 				'style'             => 'width: 80%;',
+				'label'             => 'Redirect To',
 				'desc_tip'          => true,
 				'description'       => 'Where should you be redirected to after adding this product to the cart?',
 				'custom_attributes' => [
 					'data-placeholder' => 'Select URL',
-					'data-action'      => 'add_to_cart_fine_control_search_things',
+					'data-action'      => 'after_add_to_cart_item_search',
 					'data-exclude'     => get_the_ID(),
 				],
 				'options'           => $options,
@@ -80,7 +80,7 @@ add_action(
  * Performs an AJAX admin call to find pages/products/posts.
  */
 add_action(
-	'wp_ajax_add_to_cart_fine_control_search_things',
+	'wp_ajax_after_add_to_cart_item_search',
 	function() {
 		global $wpdb;
 
