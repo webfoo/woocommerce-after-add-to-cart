@@ -17,15 +17,15 @@ add_action(
 			return;
 		}
 
-		$is_variation = isset( $_POST['variation_id'], $_POST['product_id'] );
+		$is_variation = isset( $_POST['variation_id'] );
 
-		$post_id = $is_variation ? absint( $_POST['variation_id'] ) : absint( $_POST['product_id'] );
+		$post_id = $is_variation ? absint( $_POST['variation_id'] ) : absint( $_POST['add-to-cart'] );
 
 		$current_value = get_post_meta( $post_id, '_after_add_to_cart_redirection_id', true );
 
 		if ( $current_value ) {
 			if ( 'as_parent' === $current_value ) {
-				$current_value = get_post_meta( absint( $_POST['product_id'] ), '_after_add_to_cart_redirection_id', true );
+				$current_value = get_post_meta( absint( $_POST['add-to-cart'] ), '_after_add_to_cart_redirection_id', true );
 			}
 
 			if ( 'default_action' !== $current_value ) {
