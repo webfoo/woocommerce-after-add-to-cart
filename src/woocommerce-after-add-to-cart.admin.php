@@ -48,7 +48,7 @@ add_action(
 				$options['default_action'] = $default_label;
 			} else {
 				$options[ $current_value ] = sprintf(
-					"%s <span style='float: right; color: #000'>%s</span>",
+					"%s (%s)",
 					get_the_title( $current_value ),
 					strtoupper( get_post_type( $current_value ) )
 				);
@@ -122,7 +122,7 @@ add_action(
 
 		foreach ( $results as $result ) {
 			$return[ $result->id ] = sprintf(
-				"%s <span style='float: right; color: #000'>%s</span>",
+				"%s (%s)",
 				$result->post_title,
 				strtoupper( $result->post_type )
 			);
