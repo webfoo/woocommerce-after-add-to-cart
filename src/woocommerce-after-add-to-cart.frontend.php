@@ -35,3 +35,31 @@ add_action(
 		// phpcs:enable WordPress.Security.NonceVerification
 	}
 );
+
+/**
+ * Redirects to the URL selected for this product, ajax version.
+ */
+add_action(
+	'woocommerce_ajax_added_to_cart',
+	function ( $product_id ) {
+
+		$current_value = get_post_meta( $product_id, '_after_add_to_cart_redirection_id', true );
+
+		if (! $current_value) {
+			return;
+		}
+
+		if ( 'default_action' === $current_value ) {
+			return;
+		}
+
+		$url = get_permalink( intval( $current_value ) );
+		
+		$data = array(
+			'error'       => true,
+			'product_url' => $url,
+		);
+
+		wp_send_json( $data );
+	}
+);

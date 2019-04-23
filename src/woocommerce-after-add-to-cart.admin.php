@@ -7,7 +7,7 @@
  */
 
 /**
- * Update '_after_add_to_cart_redirection_id' meta key.
+ * Update '_after_add_to_cart_redirection_id' meta key for a standard product.
  */
 add_action(
 	'woocommerce_process_product_meta',
@@ -27,7 +27,7 @@ add_action(
 );
 
 /**
- * Displays content in the 'Sample Product' new tab.
+ * Displays a select2 box in the "advance" product data.
  */
 add_action(
 	'woocommerce_product_options_advanced',
@@ -134,7 +134,9 @@ add_action(
 	}
 );
 
-
+/**
+ * Displays a select2 box in the "variations" panel for each product.
+ */
 add_action(
 	'woocommerce_product_after_variable_attributes',
 	function ( $loop, $variation_data, $variation ) {
@@ -185,7 +187,9 @@ add_action(
 	3
 );
 
-
+/**
+ * Update '_after_add_to_cart_redirection_id' meta key for the variations.
+ */
 add_action(
 	'woocommerce_save_product_variation',
 	function ( $variation_id ) {
