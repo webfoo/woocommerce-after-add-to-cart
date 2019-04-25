@@ -1,3 +1,5 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c81e22f0398345b085235ea1f365dc06)](https://www.codacy.com/app/kevdotbadger/woocommerce-after-add-to-cart?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kevinruscoe/woocommerce-after-add-to-cart&amp;utm_campaign=Badge_Grade)
+
 # What is this?
 
 A woocommerce plugin that allows finer control over the action that is performed when adding to the cart including:
