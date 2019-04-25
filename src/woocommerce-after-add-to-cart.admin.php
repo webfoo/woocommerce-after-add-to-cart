@@ -132,15 +132,15 @@ add_action(
 				'</span>';
 		} else {
 			$return['default_action'] = "<span class='option'>" .
-				"<span class='post_title'>Stay on product page</span> " .
+				"<span class='post_title'>Stay on product page</span>" .
 				"<small class='post_type'>DEFAULT</small>" .
 				'</span>';
 		}
 
 		if ( $is_variation ) {
 			$return['as_parent'] = "<span class='option'>" .
-				"<span class='post_title'>Same as parent</span> " .
-				"<span class='post_type'>PARENT</span> " .
+				"<span class='post_title'>Same as parent</span>" .
+				"<small class='post_type'>PARENT</small>" .
 				'</span>';
 		}
 
@@ -186,7 +186,7 @@ add_action(
 			} elseif ( 'as_parent' === $current_value ) {
 				$options['as_parent'] = "<span class='option'>" .
 					"<span class='post_title'>Same as parent</span> " .
-					"<span class='post_type'>PARENT</span> " .
+					"<small class='post_type'>PARENT</span> " .
 					'</span>';
 			} else {
 				$options[ $current_value ] = sprintf(
