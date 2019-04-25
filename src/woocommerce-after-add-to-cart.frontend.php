@@ -45,7 +45,7 @@ add_action(
 
 		$current_value = get_post_meta( $product_id, '_after_add_to_cart_redirection_id', true );
 
-		if (! $current_value) {
+		if ( ! $current_value ) {
 			return;
 		}
 
@@ -54,7 +54,7 @@ add_action(
 		}
 
 		$url = get_permalink( intval( $current_value ) );
-		
+
 		$data = array(
 			'error'       => true,
 			'product_url' => $url,
