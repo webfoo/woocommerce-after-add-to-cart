@@ -2,6 +2,9 @@
 <ruleset name="MyStandard">
     <description>My custom coding standard.</description>
     <rule ref="WordPress"></rule>
+    <rule ref="PEAR">
+        <exclude name="PEAR.Commenting.FileComment.Missing"/>
+    </rule>
     <file>src/</file>
     <exclude-pattern>vendor</exclude-pattern>
 </ruleset>
