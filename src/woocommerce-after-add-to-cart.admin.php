@@ -40,15 +40,20 @@ add_action(
 			if ( 'default_action' === $current_value ) {
 				$default = get_option( 'woocommerce_cart_redirect_after_add' );
 
-				$default_label = "Default Action (don't redirect to cart)";
 				if ( 'yes' === $default ) {
-					$default_label = 'Default Action (redirect to cart)';
+					$options['default_action'] = "<span class='option'>" .
+						"<span class='post_title'>Redirect to cart</span> " .
+						"<small class='post_type'>DEFAULT</small>" .
+						'</span>';
+				} else {
+					$options['default_action'] = "<span class='option'>" .
+						"<span class='post_title'>Stay on product page</span> " .
+						"<small class='post_type'>DEFAULT</small>" .
+						'</span>';
 				}
-
-				$options['default_action'] = $default_label;
 			} else {
 				$options[ $current_value ] = sprintf(
-					'%s (%s)',
+					"<span class='option'><span class='post_title'>%s</span> <small class='post_type'>%s</small></span>",
 					get_the_title( $current_value ),
 					strtoupper( get_post_type( $current_value ) )
 				);
@@ -64,14 +69,26 @@ add_action(
 				'label'             => 'Redirect To',
 				'desc_tip'          => true,
 				'description'       => 'Where should you be redirected to after adding this product to the cart?',
+				'options'           => $options,
 				'custom_attributes' => [
 					'data-placeholder' => 'Select URL',
 					'data-action'      => 'after_add_to_cart_item_search',
 					'data-exclude'     => get_the_ID(),
 				],
-				'options'           => $options,
 			]
 		);
+	}
+);
+
+
+add_action(
+	'admin_head',
+	function() {
+		print '<style>' .
+			'.select2-container .option {display: flex}' .
+			'.select2-container .option .post_title {flex: 1;}' .
+			'.select2-container .option .post_type {font-size: 75%;margin-left: auto;letter-spacing: 1px;}' .
+		'</style>';
 	}
 );
 
@@ -89,6 +106,7 @@ add_action(
 			wp_die();
 		}
 
+		$return       = [];
 		$term         = sanitize_text_field( wp_unslash( $_GET['term'] ) );
 		$exclude      = absint( wp_unslash( $_GET['exclude'] ) );
 		$is_variation = 'product_variation' === get_product( $exclude )->post_type;
@@ -107,22 +125,28 @@ add_action(
 
 		$default = get_option( 'woocommerce_cart_redirect_after_add' );
 
-		$default_label = "Default Action (don't redirect to cart)";
 		if ( 'yes' === $default ) {
-			$default_label = 'Default Action (redirect to cart)';
+			$return['default_action'] = "<span class='option'>" .
+				"<span class='post_title'>Redirect to cart</span> " .
+				"<small class='post_type'>DEFAULT</small>" .
+				'</span>';
+		} else {
+			$return['default_action'] = "<span class='option'>" .
+				"<span class='post_title'>Stay on product page</span> " .
+				"<small class='post_type'>DEFAULT</small>" .
+				'</span>';
 		}
 
-		$return = [
-			'default_action' => $default_label,
-		];
-
 		if ( $is_variation ) {
-			$return['as_parent'] = 'Same as parent';
+			$return['as_parent'] = "<span class='option'>" .
+				"<span class='post_title'>Same as parent</span> " .
+				"<span class='post_type'>PARENT</span> " .
+				'</span>';
 		}
 
 		foreach ( $results as $result ) {
 			$return[ $result->id ] = sprintf(
-				'%s (%s)',
+				"<span class='option'><span class='post_title'>%s</span> <small class='post_type'>%s</small></span>",
 				$result->post_title,
 				strtoupper( $result->post_type )
 			);
@@ -148,17 +172,25 @@ add_action(
 			if ( 'default_action' === $current_value ) {
 				$default = get_option( 'woocommerce_cart_redirect_after_add' );
 
-				$default_label = "Default Action (don't redirect to cart)";
 				if ( 'yes' === $default ) {
-					$default_label = 'Default Action (redirect to cart)';
+					$options['default_action'] = "<span class='option'>" .
+						"<span class='post_title'>Redirect to cart</span> " .
+						"<small class='post_type'>DEFAULT</small>" .
+						'</span>';
+				} else {
+					$options['default_action'] = "<span class='option'>" .
+						"<span class='post_title'>Stay on product page</span> " .
+						"<small class='post_type'>DEFAULT</small>" .
+						'</span>';
 				}
-
-				$options['default_action'] = $default_label;
 			} elseif ( 'as_parent' === $current_value ) {
-				$options['as_parent'] = 'Same as parent';
+				$options['as_parent'] = "<span class='option'>" .
+					"<span class='post_title'>Same as parent</span> " .
+					"<span class='post_type'>PARENT</span> " .
+					'</span>';
 			} else {
 				$options[ $current_value ] = sprintf(
-					"%s <span style='float: right; color: #000'>%s</span>",
+					"<span class='option'><span class='post_title'>%s</span> <small class='post_type'>%s</small></span>",
 					get_the_title( $current_value ),
 					strtoupper( get_post_type( $current_value ) )
 				);
