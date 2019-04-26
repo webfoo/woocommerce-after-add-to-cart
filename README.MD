@@ -2,14 +2,14 @@
 
 # What is this?
 
-A woocommerce plugin that allows finer control over the action that is performed when adding to the cart including:
+A woocommerce plugin that allows finer control over the action that is performed after adding a product to the cart. Features include:
 
-- Ability to set where you're redirected when you add a product
+- Ability to set where you're redirected to when you add a product
 - Ability to set different redirections on variations
 - Ability to use the parents redirect rule for variations
 - Ability to use the globally defined woocommerce setting
 
-Anything Else
+Anything Else:
 
 - It does everything that https://woocommerce.com/products/woocommerce-add-cart-redirect/ does, but is $29.00 cheaper ;)
 
