@@ -85,6 +85,7 @@ add_action(
 	'admin_head',
 	function() {
 		print '<style>' .
+			'.wc-variation-select2 ~ .select2 {max-width: 100%;min-width: 100%;}' .
 			'.select2-container .option {display: flex}' .
 			'.select2-container .option .post_title {flex: 1;}' .
 			'.select2-container .option .post_type {font-size: 75%;margin-left: auto;letter-spacing: 1px;}' .
@@ -197,12 +198,13 @@ add_action(
 			}
 		}
 
+		print '<div class="options_group form-row form-row-full">';
+
 		woocommerce_wp_select(
 			[
-				'name'              => '_after_add_to_cart_variantion_redirection_id[' . $variation->ID . ']',
-				'id'                => '_after_add_to_cart_variantion_redirection_id[' . $variation->ID . ']',
-				'class'             => 'wc-product-search',
-				'style'             => 'width: 80%;',
+				'name'              => '_after_add_to_cart_variation_redirection_id[' . $variation->ID . ']',
+				'id'                => '_after_add_to_cart_variation_redirection_id[' . $variation->ID . ']',
+				'class'             => 'wc-product-search wc-variation-select2',
 				'label'             => 'Redirect To',
 				'desc_tip'          => true,
 				'description'       => 'Where should you be redirected to after adding this product to the cart?',
@@ -214,6 +216,8 @@ add_action(
 				'options'           => $options,
 			]
 		);
+
+		print '</div>';
 	},
 	10,
 	3
@@ -227,11 +231,11 @@ add_action(
 	function ( $variation_id ) {
 		check_ajax_referer( 'save-variations', 'security' );
 
-		if ( isset( $_POST['_after_add_to_cart_variantion_redirection_id'][ $variation_id ] ) ) {
+		if ( isset( $_POST['_after_add_to_cart_variation_redirection_id'][ $variation_id ] ) ) {
 			update_post_meta(
 				$variation_id,
 				'_after_add_to_cart_redirection_id',
-				sanitize_text_field( wp_unslash( $_POST['_after_add_to_cart_variantion_redirection_id'][ $variation_id ] ) )
+				sanitize_text_field( wp_unslash( $_POST['_after_add_to_cart_variation_redirection_id'][ $variation_id ] ) )
 			);
 		}
 	}
