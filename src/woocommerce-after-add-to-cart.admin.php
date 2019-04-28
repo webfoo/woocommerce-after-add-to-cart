@@ -41,19 +41,19 @@ add_action(
 				$default = get_option( 'woocommerce_cart_redirect_after_add' );
 
 				if ( 'yes' === $default ) {
-					$options['default_action'] = "<span class='option'>" .
-						"<span class='post_title'>Redirect to cart</span> " .
-						"<small class='post_type'>DEFAULT</small>" .
+					$options['default_action'] = '<span class="option">' .
+						'<span class="post_title">Redirect to cart</span>' .
+						'<small class="post_type">DEFAULT</small>' .
 						'</span>';
 				} else {
-					$options['default_action'] = "<span class='option'>" .
-						"<span class='post_title'>Stay on product page</span> " .
-						"<small class='post_type'>DEFAULT</small>" .
+					$options['default_action'] = '<span class="option">' .
+						'<span class="post_title">Stay on product page</span>' .
+						'<small class="post_type">DEFAULT</small>' .
 						'</span>';
 				}
 			} else {
 				$options[ $current_value ] = sprintf(
-					"<span class='option'><span class='post_title'>%s</span> <small class='post_type'>%s</small></span>",
+					'<span class="option"><span class="post_title">%s</span> <small class="post_type">%s</small></span>',
 					get_the_title( $current_value ),
 					strtoupper( get_post_type( $current_value ) )
 				);
@@ -115,9 +115,9 @@ add_action(
 		// @codingStandardsIgnoreLine
 		$results = $wpdb->get_results(
 			$wpdb->prepare(
-				'select id, post_title, post_type from wp_posts ' .
-				"where post_title like %s and post_status='publish' " .
-				"and post_type in ('post', 'page', 'product')" .
+				'select id, post_title, post_type from wp_posts' .
+				'where post_title like %s and post_status="publish"' .
+				'and post_type in ("post", "page", "product")' .
 				'and id != %d',
 				'%' . $wpdb->esc_like( $term ) . '%',
 				$exclude
@@ -127,27 +127,27 @@ add_action(
 		$default = get_option( 'woocommerce_cart_redirect_after_add' );
 
 		if ( 'yes' === $default ) {
-			$return['default_action'] = "<span class='option'>" .
-				"<span class='post_title'>Redirect to cart</span> " .
-				"<small class='post_type'>DEFAULT</small>" .
+			$return['default_action'] = '<span class="option">' .
+				'<span class="post_title">Redirect to cart</span>' .
+				'<small class="post_type">DEFAULT</small>' .
 				'</span>';
 		} else {
-			$return['default_action'] = "<span class='option'>" .
-				"<span class='post_title'>Stay on product page</span>" .
-				"<small class='post_type'>DEFAULT</small>" .
+			$return['default_action'] = '<span class="option">' .
+				'<span class="post_title">Stay on product page</span>' .
+				'<small class="post_type">DEFAULT</small>' .
 				'</span>';
 		}
 
 		if ( $is_variation ) {
-			$return['as_parent'] = "<span class='option'>" .
-				"<span class='post_title'>Same as parent</span>" .
-				"<small class='post_type'>PARENT</small>" .
+			$return['as_parent'] = '<span class="option">' .
+				'<span class="post_title">Same as parent</span>' .
+				'<small class="post_type">PARENT</small>' .
 				'</span>';
 		}
 
 		foreach ( $results as $result ) {
 			$return[ $result->id ] = sprintf(
-				"<span class='option'><span class='post_title'>%s</span> <small class='post_type'>%s</small></span>",
+				'<span class="option"><span class="post_title">%s</span> <small class="post_type">%s</small></span>',
 				$result->post_title,
 				strtoupper( $result->post_type )
 			);
@@ -174,24 +174,24 @@ add_action(
 				$default = get_option( 'woocommerce_cart_redirect_after_add' );
 
 				if ( 'yes' === $default ) {
-					$options['default_action'] = "<span class='option'>" .
-						"<span class='post_title'>Redirect to cart</span> " .
-						"<small class='post_type'>DEFAULT</small>" .
+					$options['default_action'] = '<span class="option">' .
+						'<span class="post_title">Redirect to cart</span>' .
+						'<small class="post_type">DEFAULT</small>' .
 						'</span>';
 				} else {
-					$options['default_action'] = "<span class='option'>" .
-						"<span class='post_title'>Stay on product page</span> " .
-						"<small class='post_type'>DEFAULT</small>" .
+					$options['default_action'] = '<span class="option">' .
+						'<span class="post_title">Stay on product page</span>' .
+						'<small class="post_type">DEFAULT</small>' .
 						'</span>';
 				}
 			} elseif ( 'as_parent' === $current_value ) {
-				$options['as_parent'] = "<span class='option'>" .
-					"<span class='post_title'>Same as parent</span> " .
-					"<small class='post_type'>PARENT</span> " .
+				$options['as_parent'] = '<span class="option">' .
+					'<span class="post_title">Same as parent</span>' .
+					'<small class="post_type">PARENT</span>' .
 					'</span>';
 			} else {
 				$options[ $current_value ] = sprintf(
-					"<span class='option'><span class='post_title'>%s</span> <small class='post_type'>%s</small></span>",
+					'<span class="option"><span class="post_title">%s</span><small class="post_type">%s</small></span>',
 					get_the_title( $current_value ),
 					strtoupper( get_post_type( $current_value ) )
 				);
