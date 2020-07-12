@@ -1,8 +1,12 @@
 {
     "name": "kevinruscoe/woocommerce-after-add-to-cart",
-    "autoload": {
-        "files": [
-            "src/woocommerce-after-add-to-cart.php"
-        ]
+    "require": {
+        "php": "^7.3"
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "*",
+        "object-calisthenics/phpcs-calisthenics-rules": "*",
+        "phpcompatibility/php-compatibility": "*",
+        "wp-coding-standards/wpcs": "*"
     }
 }

@@ -1,6 +1,8 @@
+# Woocommerce After Add To Cart
+
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c81e22f0398345b085235ea1f365dc06)](https://www.codacy.com/app/kevdotbadger/woocommerce-after-add-to-cart?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kevinruscoe/woocommerce-after-add-to-cart&amp;utm_campaign=Badge_Grade)
 
-# What is this?
+## What is this?
 
 A woocommerce plugin that allows finer control over the action that is performed after adding a product to the cart. Features include:
 
@@ -9,7 +11,7 @@ A woocommerce plugin that allows finer control over the action that is performed
 - Ability to use the parents redirect rule for variations
 - Ability to use the globally defined woocommerce setting
 
-Anything Else:
+### Anything Else:
 
 - It does everything that https://woocommerce.com/products/woocommerce-add-cart-redirect/ does, but is $29.00 cheaper ;)
 
